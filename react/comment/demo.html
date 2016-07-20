@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/react.js"></script>
+    <script src="./js/react-dom.js"></script>
+    <script src="./browser.js"></script>
+    <script src="socket.io.js"></script>
+
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+
+    //模拟服务器数据
+    var data = [
+        {author: "Pete  cHunt", text: "This is one comment"},
+        {author: "Jordan Walke", text: "This is *another* comment"},
+        {author: "fff xxx", text: "This is *anothers* comment"}
+    ];
+
+    var CommentList = React.createClass({
+
+        render: function() {
+
+            var CommentNodes = "";
+
+            CommentNodes = this.props.data.map(function(comment) {
+                return <Comment author={comment.author}>{comment.text}</Comment>
+            });
+
+
+
+            return (
+                    <div className="commentList">
+                        {CommentNodes}
+                    </div>
+            )
+        }
+    });
+
+    var CommentForm = React.createClass({
+        handleSubmit: function(event) {
+            event.preventDefault();
+
+            //给表单元素设置ref属性。转化成实际dom，获取相关值
+            var author = this.refs.author.value.trim();
+            var text = this.refs.text.value.trim();
+            if(!text || !author) {
+                return;
+            }
+            // TODO: send request to the server
+            this.props.onCommentSubmit({author: author, text: text});
+
+            //清空相关表单的值
+            this.refs.author.value = '';
+            this.refs.text.value = '';
+            return;
+
+        },
+        render:function() {
+            return (
+                    <form className="commentForm" onSubmit={this.handleSubmit}>
+                        <input type="text" placeholder="Your name" ref="author" />
+                        <input type="text" placeholder="Say something..." ref="text" />
+                        <input type="submit" value="Post" />
+                    </form>
+            )
+        }
+    });
+
+    var socket = io.connect("/");
+
+    var CommentBox = React.createClass({
+
+        //getInitialState() 在组件的生命周期中仅执行一次，用于设置组件的初始化 state 。
+        getInitialState: function() {
+            return {data: []};
+        },
+
+        loadCommentsFromServer: function() {
+            /*$.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    this.setState({data: data});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });*/
+
+            var self = this;
+
+
+            socket.on("connect", function() {
+                socket.send("/api/comment");
+                console.log("linked!");
+            });
+            socket.on("message", function(data) {
+                self.setState({data: data.data});
+            });
+        },
+
+        handleCommentSubmit: function(comment) {
+            // TODO: submit to the server and refresh the list
+
+            /*$.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                type: 'POST',
+                data: comment,
+                success: function(data) {
+                    this.setState({data: data});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });*/
+
+
+            //为了数据提前显示，操作dom先把数据直接加进去。
+            var comments = this.state.data;
+            var newcomments = this.state.data.concat(comments);
+
+            socket.send(comment);
+        },
+
+        //这里， componentDidMount 是一个组件渲染的时候被 React 自动调用的方法。
+        // 动态更新界面的关键点就是调用 this.setState() 。
+        // 我们用新的从服务器拿到的评论数组来替换掉老的评论数组，然后 UI 自动更新。
+        // 有了这种反应机制，实现实时更新就仅需要一小点改动。
+        //在这里我们使用简单的轮询，但是你也可以很容易地改为使用 WebSockets 或者其他技术。
+
+        componentDidMount: function() {
+            this.loadCommentsFromServer();
+            setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+        },
+
+        render: function() {
+            return (
+                    <div className="commentBox">
+                        <CommentList data={this.state.data} />
+                        <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
+                    </div>
+            )
+        }
+    });
+
+    var Comment = React.createClass({
+        render: function() {
+            return (
+                    <div className="comment">
+                        <div className="commentAuthor">
+                            {this.props.author}
+                        </div>
+                        {this.props.children}
+                    </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+
+            <CommentBox url="/api/comment"  pollInterval={2000} />,
+
+            document.querySelector("#example")
+    );
+
+</script>
+</body>
+</html>
