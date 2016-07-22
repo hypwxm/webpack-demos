@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/browser.js"></script>
+<script type="text/babel">
+
+    var Children = React.createClass({
+        componentDidMount: function() {
+            console.log(Array.isArray(this.props.children));
+        },
+
+        render: function() {
+
+            let z = 0;
+            return (
+                    <ul>
+                        {
+                                React.Children.map(this.props.children, function(x) {
+                                    return <li key={z++}>{x}</li>
+                                })
+
+                                /*或者
+                                this.props.children.map(function(x) {
+                                return <li key={z++}>{x}</li>*/
+                        })
+                        }
+                    </ul>
+            )
+        }
+    });
+
+    ReactDOM.render(<Children><span>fzffv</span><span>faff</span></Children>, document.querySelector("#app"));
+
+</script>
+</body>
+</html>

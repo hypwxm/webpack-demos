@@ -2,7 +2,7 @@ var http = require("http");
 var url = require("url");
 var fs = require("fs");
 var mime = require("mime");
-
+var path = require("path");
 
 
 var server = http.createServer(function(req, res) {
@@ -12,6 +12,7 @@ var server = http.createServer(function(req, res) {
 
     if(urlobj.pathname == "/") {
         res.setHeader("Content-Type", "text/html");
+        console.log(__dirname);
         fs.readFile("./demo.html", function(err, data) {
             if (err) {
                 console.log(err);
@@ -90,7 +91,7 @@ io.on("connection", function(socket) {
                             if(err) {
                                 console.log(err);
                             }
-                            
+
                             socket.send({data: _data});
                         })
                     } else {

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/browser.js"></script>
+<script type="text/babel">
+
+    var Form = React.createClass({
+        getInitialState: function() {
+            return {value: 'Hello!'};
+        },
+        handleChange: function(event) {
+            this.setState({value: event.target.value});
+            console.log(this.refs.in.value)
+        },
+        render: function() {
+            var value = this.state.value;
+
+            //设置了value是个受限的input，里面的值无法改变，要想改变就必须绑定onChange事件
+            //如果不想受限，可以设置defaultValue来代替value
+            return (
+                            <div>
+                                <input type="text" value={value} onChange={this.handleChange} ref="in"/>
+                                {
+                                    // 反例：在 React 中不要这样使用！
+                                    // <textarea name="description">This is the description.</textarea>
+                                }
+
+                                {
+                                    //对 HTML 而言，让开发者设置多行的值很容易。
+                                    // 但是，React 是 JavaScript，没有字符限制，可以使用 \n 实现换行。
+                                    // 简言之，React 已经有 value、defaultValue 属性，</textarea> 组件的子节点扮演什么角色就有点模棱两可了。
+                                    // 基于此， 设置 <textarea> 值时不应该使用子节点：
+                                    //
+                                }
+                                <textarea name="description" value="This is a description." />
+                                {
+                                    //如果非要*使用子节点，效果和使用 defaultValue 一样。
+                                }
+
+
+                                {
+                                    //为什么 <select> 使用 value 属性
+                                    //HTML 中 <select> 通常使用 <option> 的 selected 属性设置选中状态；React 为了更方便的控制组件，采用以下方式代替：
+                                    //给 value 属性传递一个数组，可以选中多个选项：<select multiple={true} value={['B', 'C']}>。
+                                }
+
+                                <select defaultValue="B">
+                                    <option value="A">Apple</option>
+                                    <option value="B">Banana</option>
+                                    <option value="C">Cranberry</option>
+                                </select>
+
+
+                            </div>
+                    )
+
+        }
+    });
+
+    ReactDOM.render( <Form />, document.querySelector("#app"));
+
+</script>
+
+</body>
+</html>

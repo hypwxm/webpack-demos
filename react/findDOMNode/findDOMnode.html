@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/react-dom-server.js"></script>
+<script src="../js/browser.js"></script>
+<script type="text/babel">
+    var Find = React.createClass({
+        handleClick: function() {
+            //为了获取一个到React组件的引用，你可以使用this来得到当前的React组件，或者你可以使用refs来指向一个你拥有的组件。它们像这样工作：
+
+            ReactDOM.findDOMNode(this.refs.otxt).focus();
+        },
+        render: function() {
+            return (
+                    <div>
+                        <input type="text" ref="otxt" />
+                        <input type="button" value="xxx" onClick={this.handleClick} />
+                    </div>
+
+            )
+        }
+    });
+
+    ReactDOM.render( <Find />, document.querySelector("#app") );
+
+
+    str.replace(/=/g, "")
+
+</script>
+</body>
+</html>
