@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth < screen.innerWidth ? screen.innerWidth : document.documentElement.clientWidth;
+
+        if(deviceWidth > 750) deviceWidth = 750;
+
+        document.documentElement.style.fontSize = deviceWidth/7.5 + "px";
+    </script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            border:0;
+            text-decoration: none;
+            list-style: none;
+            color:#2b542c;
+        }
+    </style>
+</head>
+<body>
+<div id="body"></div>
+<div id="header"></div>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/browser.js"></script>
+<script type="text/babel">
+
+
+    var loadingMixin = {
+        loaded: false
+    }
+
+    var LoadingBar = React.createClass({
+
+        mixins: [loadingMixin],
+
+        getInitialState: function() {
+            return {
+                loading: true,
+            }
+        },
+
+        componentWillReceiveProps: function() {
+            console.log("componentWillReceiveProps")
+        },
+
+        render: function() {
+
+            var loadingstyle = {
+                width: "100%",
+                height: "100%",
+                position: "fixed",
+                left:0,
+                top:0,
+                background:"#000",
+                opacity: 0.7,
+                display: "-webkit-box",
+                WebkitBoxPack: "center",
+                WebkitBoxAlign: "center",
+            };
+
+            var loadingimgstyle = {
+                width: 20,
+                height: 20,
+                display: "block"
+            };
+
+            var loadingdivstyle = {
+                background: "#000",
+                padding: 10
+            };
+
+            var self = this;
+
+
+            if(self.props.loaded == true) {
+                return null
+            }
+
+
+
+            console.log(this.props.loaded);
+
+            return (
+
+                    <div style={loadingstyle}>
+                        <div style={loadingdivstyle}>
+                            <img src="loading.gif" style={loadingimgstyle} />
+                        </div>
+
+                    </div>
+            )
+        }
+    });
+
+    var Header = React.createClass({
+
+
+        getInitialState: function() {
+            return {
+                headimg: "./img02.jpg",
+                loaded: false
+            }
+        },
+
+        componentWillMount: function() {
+            ReactDOM.render(<LoadingBar loaded={this.state.loaded} />, document.querySelector("#body"));
+        },
+
+        componentDidMount: function() {
+            this.setState({
+                loaded: true
+            });
+
+            console.log("componentDidMount")
+
+        },
+
+
+        componentWillUpdate: function() {
+            console.log("componentWillUpdate");
+        },
+
+        componentDidUpdate: function() {
+
+            var self = this;
+            console.log("componentDidUpdate");
+            console.log(this.state.loaded);
+            setTimeout(function() {
+                ReactDOM.render(<LoadingBar loaded={self.state.loaded} />, document.querySelector("#body"));
+            }, 500)
+
+        },
+
+
+        navClick: function() {
+            document.querySelector(".headnav ul").style.display = "block";
+        },
+
+        render: function() {
+
+            var HeaderStyle = {
+                height: 45,
+                width: "7.5rem",
+                backgroundColor:"#2aabd2",
+                display:"-webkit-box",
+                WebkitBoxAlign: "center",
+
+            };
+
+            var headimgstyle = {
+                width:40,
+                height:40,
+                borderRadius: 3,
+                backgroundColor:"#2b542c",
+                marginLeft: "0.18rem",
+                backgroundImage: "url(" + this.state.headimg + ")",
+                backgroundSize: "cover",
+                backgroundPositon: "center"
+
+            };
+
+            var headtitlestyle = {
+                WebkitBoxFlex: 1,
+                fontSize: "18px",
+                color: "#fff",
+                textAlign: "center"
+            };
+
+            var headnavstyle = {
+                width: 30,
+                height:45,
+                marginRight: "0.18rem",
+                fontSize: "14px",
+                lineHeight: "45px",
+                position: "relative"
+            };
+
+            return (
+                    <div className="header" style={HeaderStyle}>
+                        <div className="userheadimg" style={headimgstyle}></div>
+                        <div className="headtitle" style={headtitlestyle}>test</div>
+                        <div className="headnav" style={headnavstyle} onClick={this.navClick}>
+                            NAV
+                            <HeadNav navdata={this.props.navdata} />
+                        </div>
+                    </div>
+            )
+        }
+    });
+
+    var HeadNav = React.createClass({
+        render: function() {
+
+            var navliststyle = {
+                display: "none",
+                position: "absolute",
+                top: 48,
+                right: 0,
+                width: 90,
+                boxShadow: "0px 2px 3px #999"
+            };
+
+            var listyle = {
+                width: "100%",
+                textAlign: "center",
+                height: 30,
+                lineHeight: "30px"
+            };
+
+            return (
+                    <ul style={navliststyle}>
+                        {this.props.navdata.map(function(ele) {
+                            return <li key={ele.id} style={listyle}>{ele.title}</li>
+
+                        })}
+                    </ul>
+            )
+        }
+    });
+
+    var navdata = [
+        {title: "nav1", id: 1},
+        {title: "nav2", id: 2},
+        {title: "nav3", id: 3}
+    ];
+
+    ReactDOM.render(<Header navdata={navdata} />, document.querySelector("#header"));
+</script>
+</body>
+</html>

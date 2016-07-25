@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth < screen.innerWidth ? screen.innerWidth : document.documentElement.clientWidth;
+        if(deviceWidth > 750) deviceWidth = 750;
+        document.documentElement.style.fontSize = deviceWidth/7.5 + "px";
+
+    </script>
+    <link href="css/loading.css" type="text/css" rel="stylesheet">
+    <link href="css/preload.css" type="text/css" rel="stylesheet">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            border:0;
+            text-decoration: none;
+            list-style: none;
+            word-break:break-all;
+            font-size:16px;
+            color:#666;
+            font-family: "arial";
+            -webkit-transition: opacity 0.3s;
+
+        }
+        body{
+            background-color:#ececec;
+        }
+        .teamboss{
+            width: 7.5rem;
+            background-color: #ececec;
+        }
+        .teamli {
+            width: 7.14rem;
+            padding:0 0.18rem;
+            height: 60px;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+        .memberhead{
+            width: 45px;
+            height: 45px;
+            border-radius: 60px;
+            overflow:hidden;
+            background-size:cover;
+            background-position:center;
+            position:relative;
+            -webkit-mask-image:url(images/mask.png);
+            -webkit-mask-position:center;
+            -webkit-mask-size:45px 45px;
+        }
+        .membername{
+            -Webkit-box-flex: 1;
+            font-size:16px;
+            margin-left: 8px;
+            margin-right:8px;
+        }
+        .membername span{
+            white-space:nowrap;
+            display: block;
+            height:23px;
+            line-height:23px;
+            overflow:hidden;
+            width:100%;
+            text-overflow: ellipsis;
+            font-size:16px;
+            color:#444
+        }
+        .membername .time{
+            font-size:14px;
+            color:#888
+        }
+        .memberphone{
+            width: 80px;
+            height: 30px;
+            border: 1px solid #e5e5e5;
+            font-size: 14px;
+            color: #929292;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="teamlist">
+
+</div>
+<script src="js/tool.js"></script>
+<script src="js/asynloading.js"></script>
+<script>
+    //加载基进度条
+    isLoadingOrIsLoaded("", true, false);
+</script>
+<script src="../js/react.js"></script>
+<script src="../js/react-dom.js"></script>
+<script src="../js/browser.js"></script>
+
+<script type="text/babel">
+
+    var data = [
+        {id: 1, headimg: "./img01.jpg", name: "hypwxm", time: "2016-07-15 21:21:12", phone: "18868804430"},
+        {id: 2, headimg: "./img02.jpg", name: "明天的太阳", time: "2016-07-15 21:21:21", phone: "15215421364"},
+        {id: 3, headimg: "./img03.jpg", name: "积分剑豪vs上单瑞文", time: "2016-07-15 21:21:21", phone: "435435345"},
+        {id: 4, headimg: "./img04.jpg", name: "飞翔的雄鸟", time: "2016-07-15 21:21:21", phone: "1546255445"},
+        {id: 5, headimg: "./img05.jpg", name: "O(∩_∩)O哈哈~55", time: "2016-07-15 21:21:21", phone: "1864615652"}
+    ];
+
+
+    var TeamList = React.createClass({
+
+        componentDidMount: function() {
+            isLoadingOrIsLoaded("", false, true);
+            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight)
+            window.addEventListener("scroll", function() {
+                scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight)
+            })
+        },
+
+        render: function() {
+
+            return (
+                    <ul className="teamboss">
+                        {
+                            this.props.data.map(function(ele) {
+                                return (
+                                        <li key={ele.id} className="teamli">
+                                            <div className="memberhead" dangerouslySetInnerHTML={{__html: preloadbg(ele.headimg, ele.id, "img05.jpg")}}>
+
+                                            </div>
+                                            <div className="membername"><span>{ele.name}</span><span className="time">{ele.time}</span></div>
+                                            <div data-phone={ele.phone} className="memberphone">电话联系</div>
+                                        </li>
+                                )
+                            })
+                        }
+                    </ul>
+
+            )
+
+        }
+    });
+
+    ReactDOM.render(<TeamList data={data} />, document.querySelector("#teamlist"));
+
+</script>
+</body>
+</html>
