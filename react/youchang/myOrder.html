@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1, minimum-scale=1, initial-scale=1">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth < screen.innerWidth ? screen.innerWidth : document.documentElement.clientWidth;
+        if(deviceWidth > 750) deviceWidth = 750;
+        document.documentElement.style.fontSize = deviceWidth/7.5 + "px";
+    </script>
+    <link href="css/loading.css" type="text/css" rel="stylesheet">
+    <link href="css/preload.css" type="text/css" rel="stylesheet">
+    <link href="css/common.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<img src="./images/img06.jpg" style="display:none">
+<img src="./images/loading.gif" style="display:none">
+<div id="order" class="order">
+
+</div>
+<script src="js/tool.js"></script>
+<script src="js/asynloading.js"></script>
+<script>
+    //加载基进度条
+    isLoadingOrIsLoaded("", true, false);
+</script>
+<script src="./js/react.js"></script>
+<script src="./js/react-dom.js"></script>
+<script src="./js/browser.js"></script>
+<script type="text/babel">
+
+    var OrderList = React.createClass({
+
+        getInitialState: function() {
+            return {
+                orderlist: []
+            }
+        },
+
+        componentWillMount: function() {
+            /*var self = this;
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", "/api/order", false);
+            xhr.send();
+            //xhr.onreadystatechange = function() {
+                if(/^2\d{2}/.test(xhr.status)) {
+                    self.setState({
+                        orderlist: JSON.parse(xhr.response)
+                    })
+                }
+            //};*/
+
+        },
+
+        componentDidMount: function() {
+
+            var self = this;
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", "/api/order", true);
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
+                    self.setState({
+                        orderlist: JSON.parse(xhr.response)
+                    });
+                    isLoadingOrIsLoaded("", false, true);
+                    scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
+                    window.addEventListener("scroll", function() {
+                        scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight)
+                    })
+                }
+            };
+            xhr.send();
+
+        },
+
+        render: function() {
+            return (
+                    <ul id="orderlist">
+                        {
+                                this.state.orderlist.map(function(ele) {
+                                    return (
+                                            <li key={ele.id}>
+                                                <a className="order_head" data-codenumber={ele.codenum}>
+                                                    <span className="dearname"><em>订单号 : {ele.codenum}</em></span>
+                                                    <span className="PaystatusText">{ele.status}</span>
+                                                </a>
+                                                <div>
+                                                    <a className="order_xq">
+                                                        <div className="order_pic" dangerouslySetInnerHTML={{__html: preloadbg(ele.surface, ele.id, "./images/img06.jpg")}}>
+                                                        </div>
+                                                        <p className="order_xj">
+                                                            <span className="order_cpm">{ele.name}</span>
+                                                        </p>
+                                                        <p className="order_jg">¥{ele.eachprice}<i>x{ele.num}</i></p>
+                                                    </a>
+                                                </div>
+                                                <div className="order_total">实付款：<i className="totalmuch">¥{ele.totalprice}</i></div>
+
+                                            </li>
+                                    )
+                                })
+                        }
+                    </ul>
+            )
+        }
+    })
+
+
+    ReactDOM.render(<OrderList />, document.querySelector("#order"));
+</script>
+</body>
+</html>

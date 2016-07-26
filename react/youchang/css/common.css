@@ -1,0 +1,168 @@
+*{
+    margin:0;
+    padding:0;
+    border:0;
+    text-decoration: none;
+    list-style: none;
+    word-break:break-all;
+    font-size:16px;
+    color:#666;
+    font-family: "arial";
+    -webkit-transition: opacity 0.3s;
+    font-style:normal;
+}
+body{
+    background-color:#ececec;
+    width:7.5rem;
+    margin:0 auto;
+}
+.teamboss{
+    width: 7.5rem;
+    background-color: #ececec;
+}
+.teamli {
+    width: 7.14rem;
+    padding:0 0.18rem;
+    height: 60px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+.memberhead{
+    width: 45px;
+    height: 45px;
+    border-radius: 60px;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    -webkit-mask-image:url(../images/mask.png);
+    -webkit-mask-position:center;
+    -webkit-mask-size:45px 45px;
+}
+.membername{
+    -Webkit-box-flex: 1;
+    font-size:16px;
+    margin-left: 8px;
+    margin-right:8px;
+}
+.membername span{
+    white-space:nowrap;
+    display: block;
+    height:23px;
+    line-height:23px;
+    overflow:hidden;
+    width:100%;
+    text-overflow: ellipsis;
+    font-size:16px;
+    color:#444
+}
+.membername .time{
+    font-size:14px;
+    color:#888
+}
+.memberphone{
+    width: 80px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    color: #929292;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.order ul {
+    width: 7.5rem;
+}
+.order li {
+    width: 7.5rem;
+    margin-bottom: 15px;
+    position: relative;
+}
+.order_head {
+    height: 40px;
+    display: -webkit-box;
+    width: 7.14rem;
+    padding: 0 0.18rem;
+    -webkit-box-align: center;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    line-height: 18px;
+}
+.order_head .dearname {
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    color:#888;
+    font-size:14px;
+}
+.order_head span {
+    display: block;
+    -webkit-box-flex: 1;
+}
+.order_head .PaystatusText {
+    text-align: right;
+    color: #888;
+    font-size:14px;
+}
+.order_xq {
+    display: -webkit-box;
+    position: relative;
+    width: 7.14rem;
+    padding: 0.15rem 0.18rem;
+    background-color: #f5f5f5;
+    line-height: 25px;
+}
+.order_pic {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.order_xj {
+    -webkit-box-flex: 1;
+    margin: 0 20px;
+}
+.order_cpm {
+    font-size: 18px;
+    color: #444444;
+    margin-bottom: 8px;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+.order_jg {
+    text-align: right;
+    font-size: 16px;
+    color: #ff3838;
+    line-height: 40px;
+    width: 60px;
+    margin-top: -8px;
+}
+.order_jg i {
+    display: block;
+    font-size: 16px;
+    color: #888888;
+}
+.order_total {
+    height: 40px;
+    background-color: #FFFFFF;
+    text-align: right;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: start;
+    font-size: 16px;
+    color:#999;
+    width: 7.14rem;
+    padding: 0 0.18rem;
+}
+.order_total i {
+    font-size: 16px;
+    color: #ff3838;
+    display: block;
+}
