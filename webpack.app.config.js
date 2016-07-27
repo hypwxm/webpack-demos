@@ -7,7 +7,7 @@ module.exports = {
     entry: [
         'webpack/hot/dev-server',
         'webpack-dev-server/client?http://localhost:8080',
-        path.resolve(__dirname, 'app/app.js')
+        path.resolve(__dirname, 'src/index.js')
     ],
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -19,7 +19,7 @@ module.exports = {
         // 使用这个plugin，这是最简单的一个配置，更多资料可到github查看
         new HtmlWebpackPlugin({
             title: 'zhufeng-react',
-            template: './app/index.html',
+            template: './build/index.html',
         })
     ],
     module: {

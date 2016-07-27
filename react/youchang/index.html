@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth < screen.innerWidth ? screen.innerWidth : document.documentElement.clientWidth;
+        if(deviceWidth > 750) deviceWidth = 750;
+        document.documentElement.style.fontSize = deviceWidth/7.5 + "px";
+
+    </script>
+</head>
+<body>
+<div id="app"></div>
+</body>
+</html>

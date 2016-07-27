@@ -1,12 +1,19 @@
 import React from "react";
 import {render} from "react-dom";
-import { Router, Route, hashHistory, IndexRoute, Redirect, IndexRedirect } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute, Redirect, IndexRedirect } from 'react-router';
 import App from './app';
 import About from './about';
 import Repos from './repos';
 
 render((
-    <Router history={hashHistory}>
+    
+    <Router history={browserHistory}>
+        
+        {/*
+
+         browserHistory和hashHistory不一样，使用browserHistory的时候，浏览器中导航栏的URL就不会用hashHistory出现_k的hash键值对。实际项目中也一般用browserHistory.
+        */}
+        
         <Route path="/" component={App}>
             <IndexRoute component={About} />
 

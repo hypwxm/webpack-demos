@@ -16,6 +16,20 @@ body{
     width:7.5rem;
     margin:0 auto;
 }
+.navbox {
+    width:7.5rem;
+    height:45px;
+    background:#fff;
+}
+.navbox ul{
+    display:-webkit-box;
+    height:45px;
+    -webkit-box-align:center;
+}
+.navbox ul li{
+    -webkit-box-flex:1;
+    text-align:center;
+}
 .teamboss{
     width: 7.5rem;
     background-color: #ececec;
