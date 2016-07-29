@@ -8,11 +8,13 @@ module.exports = {
     output: {
         filename: "yc.js",
         //publicPath: "http://mycdn.com/",
-        path: "./js"
+        path: "./js",
+        chunkFilename:"[name].js"
     },
     plugins: [
+
         new HtmlWebpackPlugin({
-            template: "./index.html"
+            template: "./index.html",
         }),
         new ExtractTextPlugin("bundle.css")
     ],

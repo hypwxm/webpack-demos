@@ -1,6 +1,34 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+
+/******/ 	};
+
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		0:0
+/******/ 	};
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +54,29 @@
 /******/ 		return module.exports;
 /******/ 	}
 
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+
+/******/ 			script.src = __webpack_require__.p + "" + ({}[chunkId]||chunkId) + ".js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -56,23 +107,23 @@
 
 	var _reactRouter = __webpack_require__(172);
 
-	var _order = __webpack_require__(235);
+	var _index = __webpack_require__(235);
 
-	var _order2 = _interopRequireDefault(_order);
+	var _index2 = _interopRequireDefault(_index);
 
-	var _team = __webpack_require__(236);
+	var _index3 = __webpack_require__(237);
 
-	var _team2 = _interopRequireDefault(_team);
+	var _index4 = _interopRequireDefault(_index3);
 
-	var _app = __webpack_require__(237);
+	var _app = __webpack_require__(239);
 
 	var _app2 = _interopRequireDefault(_app);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(238);
-	__webpack_require__(243);
+	__webpack_require__(240);
 	__webpack_require__(245);
+	__webpack_require__(247);
 
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRouter.Router,
@@ -80,10 +131,9 @@
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: "/", component: _app2.default },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _order2.default }),
 	        _react2.default.createElement(_reactRouter.IndexRedirect, { to: "order" }),
-	        _react2.default.createElement(_reactRouter.Route, { path: "order", component: _order2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: "team", component: _team2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: "order" }),
+	        _react2.default.createElement(_reactRouter.Route, { path: "team" })
 	    )
 	), document.querySelector("#app"));
 
@@ -27052,169 +27102,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var OrderList = function (_React$Component) {
-	    _inherits(OrderList, _React$Component);
-
-	    function OrderList(props) {
-	        _classCallCheck(this, OrderList);
-
-	        //es6写法在这里指定初始状态
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(OrderList).call(this, props));
-
-	        //es6写法必须写这个，继承父级的所有属性和方法
-
-
-	        _this.state = {
-	            orderlist: []
-	        };
-	        return _this;
+	exports.default = {
+	    path: "order",
+	    getComponent: function getComponent(nextState, cb) {
+	        if (window.location.pathname === '/order') {
+	            __webpack_require__.e/* nsure */(1, function (require) {
+	                cb(null, __webpack_require__(236));
+	            });
+	        }
 	    }
-
-	    _createClass(OrderList, [{
-	        key: "componentWillMount",
-	        value: function componentWillMount() {
-	            /*var self = this;
-	             var xhr = new XMLHttpRequest();
-	             xhr.open("get", "/api/order", false);
-	             xhr.send();
-	             //xhr.onreadystatechange = function() {
-	             if(/^2\d{2}/.test(xhr.status)) {
-	             self.setState({
-	             orderlist: JSON.parse(xhr.response)
-	             })
-	             }
-	             //};*/
-
-	        }
-	    }, {
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-
-	            var self = this;
-	            var xhr = new XMLHttpRequest();
-	            xhr.open("get", "/api/order", true);
-
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
-	                    self.setState({
-	                        orderlist: JSON.parse(xhr.response)
-	                    });
-	                    isLoadingOrIsLoaded("", false, true);
-	                    scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
-	                    window.addEventListener("scroll", OrderList.myScroll);
-	                }
-	            };
-	            xhr.send();
-	        }
-	    }, {
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "ul",
-	                { id: "orderlist" },
-	                this.state.orderlist.map(function (ele) {
-	                    return _react2.default.createElement(
-	                        "li",
-	                        { key: ele.id },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "order_head", "data-codenumber": ele.codenum },
-	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "dearname" },
-	                                _react2.default.createElement(
-	                                    "em",
-	                                    null,
-	                                    "订单号 : ",
-	                                    ele.codenum
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "PaystatusText" },
-	                                ele.status
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            null,
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "order_xq" },
-	                                _react2.default.createElement("div", { className: "order_pic", dangerouslySetInnerHTML: { __html: preloadbg(ele.surface, ele.id, "./images/img06.jpg") } }),
-	                                _react2.default.createElement(
-	                                    "p",
-	                                    { className: "order_xj" },
-	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "order_cpm" },
-	                                        ele.name
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    "p",
-	                                    { className: "order_jg" },
-	                                    "¥",
-	                                    ele.eachprice,
-	                                    _react2.default.createElement(
-	                                        "i",
-	                                        null,
-	                                        "x",
-	                                        ele.num
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "order_total" },
-	                            "实付款：",
-	                            _react2.default.createElement(
-	                                "i",
-	                                { className: "totalmuch" },
-	                                "¥",
-	                                ele.totalprice
-	                            )
-	                        )
-	                    );
-	                })
-	            );
-	        }
-	    }], [{
-	        key: "myScroll",
-	        value: function myScroll() {
-	            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
-	        }
-	    }, {
-	        key: "componentWillUnmount",
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("scroll", OrderList.myScroll);
-	        }
-	    }]);
-
-	    return OrderList;
-	}(_react2.default.Component);
-
-	exports.default = OrderList;
+	};
 
 /***/ },
-/* 236 */
+/* 236 */,
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27222,109 +27123,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TeamList = function (_React$Component) {
-	    _inherits(TeamList, _React$Component);
-
-	    function TeamList(props) {
-	        _classCallCheck(this, TeamList);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TeamList).call(this, props));
-
-	        _this.state = {
-	            teamlist: []
-	        };
-	        return _this;
+	exports.default = {
+	    path: "team",
+	    getComponent: function getComponent(nextState, cb) {
+	        if (window.location.pathname === '/team') {
+	            __webpack_require__.e/* nsure */(2, function (require) {
+	                cb(null, __webpack_require__(238));
+	            });
+	        }
 	    }
-
-	    _createClass(TeamList, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-
-	            var self = this;
-	            var xhr = new XMLHttpRequest();
-	            xhr.open("get", "/api/team", true);
-
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
-	                    self.setState({
-	                        teamlist: JSON.parse(xhr.response)
-	                    });
-	                    isLoadingOrIsLoaded("", false, true);
-	                    scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
-	                    window.addEventListener("scroll", TeamList.myScroll);
-	                }
-	            };
-	            xhr.send();
-	        }
-	    }, {
-	        key: "render",
-	        value: function render() {
-
-	            return _react2.default.createElement(
-	                "ul",
-	                { className: "teamboss" },
-	                this.state.teamlist.map(function (ele) {
-	                    return _react2.default.createElement(
-	                        "li",
-	                        { key: ele.id, className: "teamli" },
-	                        _react2.default.createElement("div", { className: "memberhead", dangerouslySetInnerHTML: { __html: preloadbg(ele.headimg, ele.id, "./images/img05.jpg") } }),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "membername" },
-	                            _react2.default.createElement(
-	                                "span",
-	                                null,
-	                                ele.name
-	                            ),
-	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "time" },
-	                                ele.time
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { "data-phone": ele.phone, href: "tel:" + ele.phone, className: "memberphone" },
-	                            "电话联系"
-	                        )
-	                    );
-	                })
-	            );
-	        }
-	    }], [{
-	        key: "myScroll",
-	        value: function myScroll() {
-	            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
-	        }
-	    }, {
-	        key: "componentWillUnmount",
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("scroll", TeamList.myScroll);
-	        }
-	    }]);
-
-	    return TeamList;
-	}(_react2.default.Component);
-
-	exports.default = TeamList;
+	};
 
 /***/ },
-/* 237 */
+/* 238 */,
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27405,24 +27217,24 @@
 	exports.default = App;
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 239 */,
-/* 240 */,
 /* 241 */,
 /* 242 */,
-/* 243 */
+/* 243 */,
+/* 244 */,
+/* 245 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 244 */,
-/* 245 */
+/* 246 */,
+/* 247 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

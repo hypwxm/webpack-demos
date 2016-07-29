@@ -7,6 +7,7 @@ class App extends React.Component {
     constructor(props) {
         super(props)
     }
+
     
     render() {
         return (
@@ -19,7 +20,6 @@ class App extends React.Component {
                 </div>
                 {this.props.children}
             </div>
-            
 
         )
     }
