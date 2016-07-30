@@ -1,6 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {Link} from "react-router";
+import Headbar from "./Nav";
+
+
+
 
 class App extends React.Component {
     
@@ -8,10 +11,34 @@ class App extends React.Component {
         super(props)
     }
 
+    componentWillMount() {
+        console.log("app willmount")
+    }
+
+    componentDidMount() {
+        console.log("app didmount")
+    }
+
+    componentWillUnmout() {
+        console.log("app willunmont")
+    }
+
+    componentWillReceiveProps() {
+        console.log("app WillReciveProps")
+    }
+
+    componnetWillUpdate() {
+        console.log("app willupdate")
+    }   
+    
+    componentDidUpdate() {
+        console.log("app didupdate")
+    }
     
     render() {
         return (
             <div>
+                <Headbar />
                 <div className="navbox">
                     <ul>
                         <li><Link to="/order" activeStyle={{color: "red"}}>order</Link></li>
@@ -20,9 +47,8 @@ class App extends React.Component {
                 </div>
                 {this.props.children}
             </div>
-
         )
     }
 }
 
-export default App;
+module.exports = App;

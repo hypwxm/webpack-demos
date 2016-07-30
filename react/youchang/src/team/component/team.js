@@ -15,11 +15,13 @@ class TeamList extends React.Component {
     }
 
     componentDidMount() {
-
+        
+        console.log("team didmount");
+        
         var self = this;
         var xhr = new XMLHttpRequest();
         xhr.open("get", "/api/team", true);
-
+        xhr.responseType = "text";
         xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
                 self.setState({
@@ -34,7 +36,8 @@ class TeamList extends React.Component {
 
     }
 
-    static componentWillUnmount() {
+    componentWillUnmount() {
+        console.log("team willunmount")
         window.removeEventListener("scroll", TeamList.myScroll)
     }
 
@@ -46,7 +49,7 @@ class TeamList extends React.Component {
                     this.state.teamlist.map(function(ele) {
                         return (
                             <li key={ele.id} className="teamli">
-                                <div className="memberhead" dangerouslySetInnerHTML={{__html: preloadbg(ele.headimg, ele.id, "./images/img05.jpg")}}>
+                                <div className="memberhead" dangerouslySetInnerHTML={{__html: preloadbg(ele.headimg, ele.id, "/public/images/img05.jpg")}}>
 
                                 </div>
                                 <div className="membername"><span>{ele.name}</span><span className="time">{ele.time}</span></div>
@@ -62,4 +65,4 @@ class TeamList extends React.Component {
     }
 }
 
-export default TeamList;
+module.exports = TeamList;

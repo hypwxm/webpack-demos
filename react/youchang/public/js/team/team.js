@@ -1,13 +1,9 @@
 webpackJsonp([2],{
 
-/***/ 238:
+/***/ 249:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -41,10 +37,12 @@ webpackJsonp([2],{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 
+	            console.log("team didmount");
+
 	            var self = this;
 	            var xhr = new XMLHttpRequest();
 	            xhr.open("get", "/api/team", true);
-
+	            xhr.responseType = "text";
 	            xhr.onreadystatechange = function () {
 	                if (xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
 	                    self.setState({
@@ -58,6 +56,12 @@ webpackJsonp([2],{
 	            xhr.send();
 	        }
 	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {
+	            console.log("team willunmount");
+	            window.removeEventListener("scroll", TeamList.myScroll);
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 
@@ -68,7 +72,7 @@ webpackJsonp([2],{
 	                    return _react2.default.createElement(
 	                        "li",
 	                        { key: ele.id, className: "teamli" },
-	                        _react2.default.createElement("div", { className: "memberhead", dangerouslySetInnerHTML: { __html: preloadbg(ele.headimg, ele.id, "./images/img05.jpg") } }),
+	                        _react2.default.createElement("div", { className: "memberhead", dangerouslySetInnerHTML: { __html: preloadbg(ele.headimg, ele.id, "/public/images/img05.jpg") } }),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "membername" },
@@ -97,17 +101,12 @@ webpackJsonp([2],{
 	        value: function myScroll() {
 	            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
 	        }
-	    }, {
-	        key: "componentWillUnmount",
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("scroll", TeamList.myScroll);
-	        }
 	    }]);
 
 	    return TeamList;
 	}(_react2.default.Component);
 
-	exports.default = TeamList;
+	module.exports = TeamList;
 
 /***/ }
 

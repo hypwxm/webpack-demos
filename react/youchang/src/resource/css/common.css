@@ -16,6 +16,63 @@ body{
     width:7.5rem;
     margin:0 auto;
 }
+.headbar{
+    width:7.14rem;
+    padding:0 0.18rem;
+    display:-webkit-box;
+    -webkit-box-align:center;
+    height:45px;
+    background:#fff;
+    border-bottom:1px solid #2db7f5;
+    position:relative;
+    z-index:10;
+}
+.headnav{
+    width: 30px;
+    height:30px;
+    background-color: #2db7f5;
+}
+.navlist{
+    position:absolute;
+    left:0.18rem;
+    top:48px;
+    width:120px;
+    border:1px solid #f4f4f4;
+    background:#fff;
+    border-radius:3px;
+    display:none;
+}
+.navlist:before{
+    content:"";
+    position:absolute;
+    width:0;
+    height:0;
+    border:4px solid transparent;
+    border-bottom:4px solid #d58512;
+    z-index:10;
+    top:-8px;
+    left:0.2rem;
+}
+.example-enter {
+    opacity: 0.01;
+    transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+    opacity: 1;
+}
+.eachnav{
+    display:block;
+    width:100%;
+    height:35px;
+    border-bottom:1px solid #f4f4f4;
+    text-align:center;
+    line-height:35px;
+    color:#888;
+}
+.eachnav:last-child{
+    border-bottom:0;
+}
 .navbox {
     width:7.5rem;
     height:45px;

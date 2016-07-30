@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "" + ({}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + ({"1":"./public/js/order/order","2":"./public/js/team/team"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -107,35 +107,45 @@
 
 	var _reactRouter = __webpack_require__(172);
 
-	var _index = __webpack_require__(235);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _index3 = __webpack_require__(237);
-
-	var _index4 = _interopRequireDefault(_index3);
-
-	var _app = __webpack_require__(239);
+	var _app = __webpack_require__(235);
 
 	var _app2 = _interopRequireDefault(_app);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(240);
-	__webpack_require__(245);
-	__webpack_require__(247);
+	__webpack_require__(237);
+	__webpack_require__(242);
+	__webpack_require__(244);
 
-	_reactDom2.default.render(_react2.default.createElement(
-	    _reactRouter.Router,
-	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(
-	        _reactRouter.Route,
-	        { path: "/", component: _app2.default },
-	        _react2.default.createElement(_reactRouter.IndexRedirect, { to: "order" }),
-	        _react2.default.createElement(_reactRouter.Route, { path: "order" }),
-	        _react2.default.createElement(_reactRouter.Route, { path: "team" })
-	    )
-	), document.querySelector("#app"));
+	var rootRouter = {
+
+	    path: "/",
+	    component: _app2.default,
+	    indexRoute: { onEnter: function onEnter(nextState, replace) {
+	            return replace('/order');
+	        } },
+
+	    childRoutes: [__webpack_require__(246), __webpack_require__(248), { path: "/order", onEnter: function onEnter(nextState, replace) {
+	            return replace("/");
+	        } }]
+
+	    /*childRoutes: [
+	        { path: 'about', component: About },
+	        { path: 'inbox',
+	            component: Inbox,
+	            childRoutes: [
+	                { path: '/messages/:id', component: Message },
+	                { path: 'messages/:id',
+	                    onEnter: function (nextState, replaceState) {
+	                        replaceState(null, '/messages/' + nextState.params.id)
+	                    }
+	                }
+	            ]
+	        }
+	    ]*/
+	};
+
+	_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: rootRouter }), document.querySelector("#app"));
 
 /***/ },
 /* 1 */
@@ -27099,63 +27109,17 @@
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    path: "order",
-	    getComponent: function getComponent(nextState, cb) {
-	        if (window.location.pathname === '/order') {
-	            __webpack_require__.e/* nsure */(1, function (require) {
-	                cb(null, __webpack_require__(236));
-	            });
-	        }
-	    }
-	};
-
-/***/ },
-/* 236 */,
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    path: "team",
-	    getComponent: function getComponent(nextState, cb) {
-	        if (window.location.pathname === '/team') {
-	            __webpack_require__.e/* nsure */(2, function (require) {
-	                cb(null, __webpack_require__(238));
-	            });
-	        }
-	    }
-	};
-
-/***/ },
-/* 238 */,
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(33);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _reactRouter = __webpack_require__(172);
+
+	var _Nav = __webpack_require__(236);
+
+	var _Nav2 = _interopRequireDefault(_Nav);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27175,11 +27139,42 @@
 	    }
 
 	    _createClass(App, [{
+	        key: "componentWillMount",
+	        value: function componentWillMount() {
+	            console.log("app willmount");
+	        }
+	    }, {
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	            console.log("app didmount");
+	        }
+	    }, {
+	        key: "componentWillUnmout",
+	        value: function componentWillUnmout() {
+	            console.log("app willunmont");
+	        }
+	    }, {
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps() {
+	            console.log("app WillReciveProps");
+	        }
+	    }, {
+	        key: "componnetWillUpdate",
+	        value: function componnetWillUpdate() {
+	            console.log("app willupdate");
+	        }
+	    }, {
+	        key: "componentDidUpdate",
+	        value: function componentDidUpdate() {
+	            console.log("app didupdate");
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
 	                null,
+	                _react2.default.createElement(_Nav2.default, null),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "navbox" },
@@ -27214,30 +27209,154 @@
 	    return App;
 	}(_react2.default.Component);
 
-	exports.default = App;
+	module.exports = App;
 
 /***/ },
-/* 240 */
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FootNav = function (_React$Component) {
+	    _inherits(FootNav, _React$Component);
+
+	    function FootNav(props) {
+	        _classCallCheck(this, FootNav);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FootNav).call(this, props));
+
+	        _this.state = {
+	            navShow: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(FootNav, [{
+	        key: "navClick",
+	        value: function navClick() {
+	            this.setState({
+	                navShow: !this.state.navShow
+	            });
+	        }
+	    }, {
+	        key: "componentDidUpdate",
+	        value: function componentDidUpdate() {
+	            this.refs.navlist.style.display = this.state.navShow == true ? "block" : "none";
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "headbar" },
+	                _react2.default.createElement("div", { className: "headnav", onClick: this.navClick.bind(this) }),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "navlist", ref: "navlist" },
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/index", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "Index"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/case", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "Case"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/Community", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "Community"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/user", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "User"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return FootNav;
+	}(_react2.default.Component);
+
+	exports.default = FootNav;
+
+/***/ },
+/* 237 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
+/* 238 */,
+/* 239 */,
+/* 240 */,
 /* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */
+/* 242 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 246 */,
-/* 247 */
+/* 243 */,
+/* 244 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 245 */,
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	    path: "order",
+	    getComponent: function getComponent(nextState, cb) {
+	        __webpack_require__.e/* nsure */(1, function (require) {
+	            cb(null, __webpack_require__(247));
+	        });
+	    }
+	};
+
+/***/ },
+/* 247 */,
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	    path: "team",
+	    getComponent: function getComponent(nextState, cb) {
+	        __webpack_require__.e/* nsure */(2, function (require) {
+	            cb(null, __webpack_require__(249));
+	        });
+	    }
+	};
 
 /***/ }
 /******/ ]);

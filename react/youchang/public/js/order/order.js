@@ -1,19 +1,17 @@
 webpackJsonp([1],{
 
-/***/ 236:
+/***/ 247:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,7 +30,6 @@ webpackJsonp([1],{
 	        //es6写法在这里指定初始状态
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(OrderList).call(this, props));
-
 	        //es6写法必须写这个，继承父级的所有属性和方法
 
 
@@ -62,10 +59,12 @@ webpackJsonp([1],{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 
+	            console.log("order didmount");
+
 	            var self = this;
 	            var xhr = new XMLHttpRequest();
 	            xhr.open("get", "/api/order", true);
-
+	            xhr.responseType = "text";
 	            xhr.onreadystatechange = function () {
 	                if (xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
 	                    self.setState({
@@ -79,6 +78,12 @@ webpackJsonp([1],{
 	            xhr.send();
 	        }
 	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {
+	            console.log("order willunmount");
+	            window.removeEventListener("scroll", OrderList.myScroll);
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -89,63 +94,67 @@ webpackJsonp([1],{
 	                        "li",
 	                        { key: ele.id },
 	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "order_head", "data-codenumber": ele.codenum },
+	                            _reactRouter.Link,
+	                            { to: "/order/detail/" + ele.id },
 	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "dearname" },
+	                                "div",
+	                                { className: "order_head", "data-codenumber": ele.codenum },
 	                                _react2.default.createElement(
-	                                    "em",
-	                                    null,
-	                                    "订单号 : ",
-	                                    ele.codenum
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "PaystatusText" },
-	                                ele.status
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            null,
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "order_xq" },
-	                                _react2.default.createElement("div", { className: "order_pic", dangerouslySetInnerHTML: { __html: preloadbg(ele.surface, ele.id, "./images/img06.jpg") } }),
-	                                _react2.default.createElement(
-	                                    "p",
-	                                    { className: "order_xj" },
+	                                    "span",
+	                                    { className: "dearname" },
 	                                    _react2.default.createElement(
-	                                        "span",
-	                                        { className: "order_cpm" },
-	                                        ele.name
+	                                        "em",
+	                                        null,
+	                                        "订单号 : ",
+	                                        ele.codenum
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
-	                                    "p",
-	                                    { className: "order_jg" },
-	                                    "¥",
-	                                    ele.eachprice,
+	                                    "span",
+	                                    { className: "PaystatusText" },
+	                                    ele.status
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "order_xq" },
+	                                    _react2.default.createElement("div", { className: "order_pic", dangerouslySetInnerHTML: { __html: preloadbg(ele.surface, ele.id, "/public/images/img06.jpg") } }),
 	                                    _react2.default.createElement(
-	                                        "i",
-	                                        null,
-	                                        "x",
-	                                        ele.num
+	                                        "p",
+	                                        { className: "order_xj" },
+	                                        _react2.default.createElement(
+	                                            "span",
+	                                            { className: "order_cpm" },
+	                                            ele.name
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "p",
+	                                        { className: "order_jg" },
+	                                        "¥",
+	                                        ele.eachprice,
+	                                        _react2.default.createElement(
+	                                            "i",
+	                                            null,
+	                                            "x",
+	                                            ele.num
+	                                        )
 	                                    )
 	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "order_total" },
-	                            "实付款：",
+	                            ),
 	                            _react2.default.createElement(
-	                                "i",
-	                                { className: "totalmuch" },
-	                                "¥",
-	                                ele.totalprice
+	                                "div",
+	                                { className: "order_total" },
+	                                "实付款：",
+	                                _react2.default.createElement(
+	                                    "i",
+	                                    { className: "totalmuch" },
+	                                    "¥",
+	                                    ele.totalprice
+	                                )
 	                            )
 	                        )
 	                    );
@@ -157,17 +166,12 @@ webpackJsonp([1],{
 	        value: function myScroll() {
 	            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
 	        }
-	    }, {
-	        key: "componentWillUnmount",
-	        value: function componentWillUnmount() {
-	            window.removeEventListener("scroll", OrderList.myScroll);
-	        }
 	    }]);
 
 	    return OrderList;
 	}(_react2.default.Component);
 
-	exports.default = OrderList;
+	module.exports = OrderList;
 
 /***/ }
 

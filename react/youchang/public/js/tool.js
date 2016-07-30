@@ -28,7 +28,7 @@ var DS = {};
 ;-function() {
     var loadingbar = document.createElement("div");
     loadingbar.className = "loadingbar";
-    loadingbar.innerHTML = "<div class='loading'><img src='images/loading.gif'></div>";
+    loadingbar.innerHTML = "<div class='loading'><img src='/public/images/loading.gif'></div>";
     document.querySelector("body").appendChild(loadingbar);
 }();
 
@@ -538,7 +538,7 @@ var loadingAndLoadedservices = {
             $loadingbar.setAttribute("style", "");
             $loading.setAttribute("style", "");
             //$$(".loadingbar").style.cssText = "display:none;width: 100%;height: 2rem; -webkit-box-pack: center; -webkit-box-align: center;position: fixed;top: 50%;margin-top: -1rem;z-index: 100;";
-            $loading.innerHTML = "<img src='images/loading.gif'>";
+            $loading.innerHTML = "<img src='/public/images/loading.gif'>";
 
 
             if ($$(".nomove")) {

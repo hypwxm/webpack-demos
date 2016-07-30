@@ -7,26 +7,26 @@ http.createServer(function(req, res) {
 
     console.log(urlobj);
 
-    if(urlobj.pathname == "/") {
-        fs.exists("./js/index.html", function(exists) {
+    if(!/\./.test(urlobj.pathname) && !/api/.test(urlobj.pathname)) {
+        fs.exists("./view/index.html", function(exists) {
             if(exists) {
-                fs.readFile("./js/index.html", function(err, data) {
+                fs.readFile("./view/index.html", function(err, data) {
                     if(err) {
                         res.writeHead(404, {"Content-Type": "text/html"});
                         res.write("404, not found");
                         res.end();
                     } else {
                         res.writeHead(200, {"Content-Type": "text/html"});
-                        res.write(data);
+                        res.write(data.toString());
                         res.end();
                     }
                 })
             }
         })
     } else if (urlobj.pathname == "/myOrder") {
-        fs.exists("./myOrder.html", function(exists) {
+        fs.exists("./view/myOrder.html", function(exists) {
             if(exists) {
-                fs.readFile("./myOrder.html", function(err, data) {
+                fs.readFile("./view/myOrder.html", function(err, data) {
                     if(err) console.log(err);
 
                     console.log("render page");
@@ -37,9 +37,9 @@ http.createServer(function(req, res) {
             }
         })
     } else if (urlobj.pathname == "/myTeam") {
-        fs.exists("./myTeam.html", function(exists) {
+        fs.exists("./view/myTeam.html", function(exists) {
             if(exists) {
-                fs.readFile("./myTeam.html", function(err, data) {
+                fs.readFile("./view/myTeam.html", function(err, data) {
                     if(err) console.log(err);
 
                     console.log("render page");
@@ -51,9 +51,9 @@ http.createServer(function(req, res) {
         })
     } else if (urlobj.pathname == "/api/order") {
         res.setHeader("Content-Type", mime.lookup(req.url));
-        fs.exists("./order.json", function(exists) {
+        fs.exists("./data/order.json", function(exists) {
             if(exists) {
-                fs.readFile("./order.json", function(err, data) {
+                fs.readFile("./data/order.json", function(err, data) {
                     if(err) {
                         console.log(err);
                         res.setStatusCode = 404;
@@ -68,9 +68,9 @@ http.createServer(function(req, res) {
         })
     } else if (urlobj.pathname == "/api/team") {
         res.setHeader("Content-Type", mime.lookup(req.url));
-        fs.exists("./team.json", function(exists) {
+        fs.exists("./data/team.json", function(exists) {
             if(exists) {
-                fs.readFile("./team.json", function(err, data) {
+                fs.readFile("./data/team.json", function(err, data) {
                     if(err) {
                         console.log(err);
                         res.setStatusCode = 404;
@@ -103,4 +103,4 @@ http.createServer(function(req, res) {
         })
     }
 
-}).listen(8080);
+}).listen(8888);

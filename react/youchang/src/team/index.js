@@ -1,12 +1,10 @@
 
 
-export default {
+module.exports = {
     path: "team",
     getComponent(nextState, cb) {
-        if (window.location.pathname === '/team') {
-            require.ensure(["./component/team.js"], (require) => {
-                cb(null, require("./component/team.js"))
-            })
-        }
+        require.ensure([], (require) => {
+            cb(null, require("./component/team.js"))
+        }, "./public/js/team/team")
     }
 };

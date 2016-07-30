@@ -1,10 +1,10 @@
 import React from "react";
+import {Link} from "react-router";
 
 
 class OrderList extends React.Component {
 
     constructor(props) {
-
         //es6写法必须写这个，继承父级的所有属性和方法
         super(props);
 
@@ -36,10 +36,12 @@ class OrderList extends React.Component {
     
     componentDidMount() {
         
+        console.log("order didmount");
+        
         var self = this;
         var xhr = new XMLHttpRequest();
         xhr.open("get", "/api/order", true);
-
+        xhr.responseType = "text";
         xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && /^2\d{2}/.test(xhr.status)) {
                 self.setState({
@@ -53,7 +55,8 @@ class OrderList extends React.Component {
         xhr.send();
     }
 
-    static componentWillUnmount() {
+    componentWillUnmount() {
+        console.log("order willunmount")
         window.removeEventListener("scroll", OrderList.myScroll)
     }
     
@@ -64,22 +67,23 @@ class OrderList extends React.Component {
                     this.state.orderlist.map(function(ele) {
                         return (
                             <li key={ele.id}>
-                                <a className="order_head" data-codenumber={ele.codenum}>
-                                    <span className="dearname"><em>订单号 : {ele.codenum}</em></span>
-                                    <span className="PaystatusText">{ele.status}</span>
-                                </a>
-                                <div>
-                                    <a className="order_xq">
-                                        <div className="order_pic" dangerouslySetInnerHTML={{__html: preloadbg(ele.surface, ele.id, "./images/img06.jpg")}}>
+                                <Link to={"/order/detail/" + ele.id}>
+                                    <div className="order_head" data-codenumber={ele.codenum}>
+                                        <span className="dearname"><em>订单号 : {ele.codenum}</em></span>
+                                        <span className="PaystatusText">{ele.status}</span>
+                                    </div>
+                                    <div>
+                                        <div className="order_xq">
+                                            <div className="order_pic" dangerouslySetInnerHTML={{__html: preloadbg(ele.surface, ele.id, "/public/images/img06.jpg")}}>
+                                            </div>
+                                            <p className="order_xj">
+                                                <span className="order_cpm">{ele.name}</span>
+                                            </p>
+                                            <p className="order_jg">¥{ele.eachprice}<i>x{ele.num}</i></p>
                                         </div>
-                                        <p className="order_xj">
-                                            <span className="order_cpm">{ele.name}</span>
-                                        </p>
-                                        <p className="order_jg">¥{ele.eachprice}<i>x{ele.num}</i></p>
-                                    </a>
-                                </div>
-                                <div className="order_total">实付款：<i className="totalmuch">¥{ele.totalprice}</i></div>
-
+                                    </div>
+                                    <div className="order_total">实付款：<i className="totalmuch">¥{ele.totalprice}</i></div>
+                                </Link>
                             </li>
                         )
                     })
@@ -89,4 +93,4 @@ class OrderList extends React.Component {
     }
 }
 
-export default OrderList;
+module.exports = OrderList;
