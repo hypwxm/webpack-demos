@@ -1,0 +1,10 @@
+<%- include ../include/header.ejs %>
+<div class="successpage">
+    signed in success! <br />will redirect to homepage for you!
+</div>
+<%- include ../include/footer.ejs %>
+<script>
+    setTimeout(function() {
+        window.location.pathname = "/";
+    }, 2000)
+</script>

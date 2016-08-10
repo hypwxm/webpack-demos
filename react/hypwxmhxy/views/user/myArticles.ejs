@@ -1,0 +1,55 @@
+<%- include ../include/header.ejs %>
+<div>
+    <div class="myarticlehead">
+        <span class="articlelen"><%=articles.length%></span>
+        <a href="/user/addarticle" class="addnewarticle">New</a>
+    </div>
+    <ul class="indexbox">
+        <%
+        articles.forEach(function(article) {
+        %>
+        <li>
+            <h3 class="articlehead">
+                <div class="articleuser">
+                    <div>
+                        <div class="allpreContainer">
+                            <div class="inoutbg" style="background-image:url(/images/default.png);background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"></div>
+                            <img class="preloadbg" src-data="<%=article.headportrait%>" src="" loaded="false" />
+                            <div class="DSbg" style="background-image: url(/images/default.png); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div>
+                        </div>
+                    </div>
+                    <%=article.name%>
+                </div>
+                <span><%=article.createtime%></span>
+            </h3>
+            <div class="indexarticles">
+                <h4 class="articletitle"><%=article.title%></h4>
+                <div class="articlecontent">
+                    <%=article.content%>
+                </div>
+                <div class="articleimg">
+                    <%
+                    if(article.imglist) {
+                        article.imglist.split(",").forEach(function(img) {
+                    %>
+                        <div>
+                            <div class="allpreContainer">
+                                <div class="inoutbg" style="background-image:url(/images/img09.jpg);background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"></div>
+                                <img class="preloadbg" src-data="<%=img%>" src="" loaded="false" />
+                                <div class="DSbg" style="background-image: url(/images/img09.jpg); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div>
+                            </div>
+                        </div>
+                    <%
+                        })
+                    }
+                    %>
+                </div>
+            </div>
+        </li>
+        <%
+        })
+        %>
+
+    </ul>
+</div>
+<%- include ../include/footer.ejs %>

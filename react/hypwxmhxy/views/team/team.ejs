@@ -1,0 +1,23 @@
+<%- include ../include/header.ejs %>
+<ul class="teamboss">
+    <%
+        teams.forEach(function(team) {
+    %>
+            <li class="teamli">
+                <div class="memberhead">
+                    <div class="allpreContainer">
+                        <div class="inoutbg" style="background-image:url(images/default.png);background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"></div>
+                        <img class="preloadbg" src-data="<%=team.headimg%>" src="" loaded="false" />
+                        <div class="DSbg" style="background-image: url(images/default.png); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat no-repeat;"></div>
+                    </div>
+                </div>
+                <div class="membername"><span><%=team.name%></span><span class="time"><%=team.time%></span></div>
+                <a href="tel:<%=team.phone%>" class="memberphone">联系电话</a>
+            </li>
+    <%
+        })
+    %>
+
+</ul>
+<a href="/team/add" class="addnewteam">new team</a>
+<%- include ../include/footer.ejs %>

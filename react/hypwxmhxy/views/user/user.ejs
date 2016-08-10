@@ -1,0 +1,24 @@
+<%- include ../include/header.ejs %>
+<div class="usercon">
+
+    <%
+    if(user) {
+    %>
+    <div class="mystyle">
+        <div class="myheadportrait" style="background-image:url(<%=user.headportrait%>)"></div>
+    </div>
+    <div class="userinfo">
+        <div class="username"><%=user.name%></div>
+        <div class="useremail"><%=user.email%></div>
+        <div class="myarticlesstyle">
+            <a href="/user/myarticles" class="myarticles">
+                Article
+            </a>
+        </div>
+    </div>
+    <%
+    }
+    %>
+
+</div>
+<%- include ../include/footer.ejs %>

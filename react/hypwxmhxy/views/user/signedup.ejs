@@ -1,0 +1,90 @@
+<%- include ../include/header.ejs %>
+<div class="usersignin">
+    <form>
+        <input type="text" class="username inputinit" name="username" placeholder="username" />
+        <input type="password" class="password inputinit" name="password" placeholder="password"/>
+        <input type="password" class="password2 inputinit" name="passwordagain" placeholder="password again"/>
+        <input type="text" name="useremail" class="useremail inputinit" placeholder="email"/>
+        <input type="button" value="Sign Up" class="mysignedup" />
+    </form>
+    <div class="isforgetorup">
+        <a>Have a count?</a>
+        <a href="/user/signedin" class="willsignedup">Sign In</a>
+    </div>
+</div>
+<%- include ../include/footer.ejs %>
+<script>
+
+    function checkPass() {
+        $$(".password2").oninput = function() {
+            var pass = $$(".password").value;
+            if (pass == $$(".password2").value) {
+                $$(".password2").classList.remove("inputerror");
+            }
+        }
+        $$(".password").oninput = function() {
+            var pass = $$(".password").value;
+            if (pass == $$(".password2").value) {
+                $$(".password2").classList.remove("inputerror");
+            }
+        }
+    }
+
+    foucesRemoveError($$(".username"), $$(".password"));
+
+    DS.$(function() {
+        $$(".mysignedup").onclick = function() {
+            if($$(".username").value.trim() == "") {
+                $$(".username").classList.add("inputerror");
+                $$(".username").focus();
+                alert("Not a correct username");
+                return;
+            }
+            if($$(".password").value.trim() == "") {
+                $$(".password").classList.add("inputerror");
+                $$(".password").focus();
+                alert("Not a correct password");
+                return;
+            }
+            if($$(".password").value != $$(".password2").value) {
+                $$(".password2").classList.add("inputerror");
+                $$(".password2").focus();
+                alert("password diffirent")
+                checkPass();
+                return;
+            }
+
+
+            signup();
+            $$(".mysignedup").onclick = null;
+        }
+    });
+
+
+
+    function signup() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/user/api/signedup", true);
+        xhr.responseType = "text";
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && /2\d{2}.test(xhr.status)/) {
+                var res = JSON.parse(xhr.response);
+                if(res.Msg == "success") {
+                    window.location.pathname = "/user/success";
+                } else {
+                    if(res.errorcode == 1) {
+                        alert("something wrong happend please try again!")
+                    } else if (res.errorcode == 2) {
+                        alert("nickname have been used, change your nickname and signed up again!")
+                    }
+                }
+            }
+        }
+        var params = {};
+        params.username = $$(".username").value;
+        params.password = $$(".password", true)[0].value;
+        params.useremail = $$(".useremail").value;
+        xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        xhr.send(JSON.stringify(params));
+    }
+</script>

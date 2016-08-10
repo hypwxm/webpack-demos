@@ -16,7 +16,7 @@ const rootRouter = {
         childRoutes: [
             require("./Order/index"),
             require("./Team/index"),
-            {path: "/order", onEnter:(nextState, replace) => replace("/")}
+            require("./Form/index")
         ]
     
     

@@ -47,7 +47,7 @@ class OrderList extends React.Component {
                 self.setState({
                     orderlist: JSON.parse(xhr.response)
                 });
-                isLoadingOrIsLoaded("", false, true);
+                //isLoadingOrIsLoaded("", false, true);
                 scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
                 window.addEventListener("scroll", OrderList.myScroll)
             }

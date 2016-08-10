@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HYPWXMHXY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <script>
+        var deviceWidth = document.documentElement.clientWidth < screen.innerWidth ? screen.innerWidth : document.documentElement.clientWidth;
+        if(deviceWidth > 750) deviceWidth = 750;
+        document.documentElement.style.fontSize = deviceWidth/7.5 + "px";
+    </script>
+    <link rel="stylesheet" href="/stylesheets/common.css">
+    <link rel="stylesheet" href="/stylesheets/loading.css">
+    <link rel="stylesheet" href="/stylesheets/preload.css">
+</head>
+<body>
+<div class="headbar">
+    <div class="headnav"></div>
+    <div class="navlist">
+        <a class="eachnav" href="/">Index</a>
+        <a class="eachnav" href="/case">Case</a>
+        <a class="eachnav" href="/community">Community</a>
+        <a class="eachnav" href="/team">Team</a>
+        <a class="eachnav" href="/order">Order</a>
+        <%
+            if(user) {
+        %>
+                <a class="eachnav" href="/user">User</a>
+        <%
+            }
+        %>
+
+    </div>
+
+    <%
+     if(user) {
+    %>
+        <a href="" class="gosign"><%=user.name%></a>
+    <%
+    } else {
+    %>
+        <a href="/user/signedin" class="gosign">signed in/up</a>
+    <%
+    }
+    %>
+</div>
+<div class="container">

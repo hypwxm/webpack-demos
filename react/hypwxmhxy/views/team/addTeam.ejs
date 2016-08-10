@@ -1,0 +1,22 @@
+<%- include ../include/header.ejs %>
+<div class="useform">
+    <form enctype="multipart/form-data">
+        <p>name:
+            <input type="text" placeholder="name is required" value="">
+        </p>
+        <p>headPortrait:
+            <em class="headstyle">
+                <input type="file" class="sendfilepic" name="headPortrait" accept="image/*">
+                <span>choose picture</span>
+            </em>
+        </p>
+        <div id="pic_file">
+
+        </div>
+        <p>phone:
+            <input type="text" placeholder="write 11 number" value="">
+        </p>
+        <input type="button" class="sub" value="submit">
+    </form>
+</div>
+<%- include ../include/footer.ejs %>

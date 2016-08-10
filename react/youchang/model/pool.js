@@ -11,14 +11,29 @@ var pool = mysql.createPool({
     host: "127.0.0.1",
     user: "root",
     password: "hyp2wxm2hxy",
-    database: "game",
+    database: "yc",
     port: 3306
 });
-var sql4 = "select * from user";
-pool.query(sql4, function(err, rows) {
-    if(err) {
-        console.lo(err);
-    } else {
-        console.log(rows)
-    }
-});
+
+exports.getteam = function(callback) {
+    pool.query("select * from team", function(err, rows) {
+        if(err) {
+            console.log(err);
+        } else {
+            callback(rows);
+            console.log(rows)
+        }
+    }); 
+};
+exports.newteamuser = function(callback, item) {
+    pool.query("insert into team (headimg,name,time,phone) values (?,?,?,?)", [item.headimg, item.name, item.time, item.phone], function(err, rows) {
+        if(err) {
+            console.log(err);
+        } else {
+            if(typeof callback == "function") {
+                callback(rows);
+            }
+            console.log(rows)
+        }
+    });
+};

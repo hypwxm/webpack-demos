@@ -1,0 +1,75 @@
+<%- include ../include/header.ejs %>
+<div class="articleform">
+    <div class="addarticlehead">
+        Edit your article!
+    </div>
+    <form enctype="multipart/form-data">
+        <input type="text" class="myinputtitle" name="articletitle" placeholder="your title width 20 words or less" maxlength="20" />
+        <textarea class="myinputcontent" name="articlecontent" placeholder="your content width 500 words or less" maxlength="500"></textarea>
+        <p class="addimage">
+            Add image description
+            <em class="headstyle">
+                <input type="file" class="picsinarticle" name="articleImgList" multiple>
+                <span>choose picture</span>
+            </em>
+        </p>
+        <div class="filePreviewZone"></div>
+        <input type="button" class="subArticle" value="submit">
+    </form>
+</div>
+<%- include ../include/footer.ejs %>
+<script>
+
+    var fileLoader = new SetUploaderFilesPreview({
+        resource: ".picsinarticle",
+        //target: '#pic_file',
+        fullSize: 1024 * 1024 * 5,
+        size: 1024 * 1024 * 1,
+        num: 5,
+        allowedFileExtensions: ["jpg", "png", "jpeg", "gif"],
+        //allowedType: ["image", "zip"],
+        drag: true,
+        /*exFilter: function(files) {
+            return [];
+        }*/
+        bigView: true
+    })
+
+
+
+    foucesRemoveError($$(".myinputtitle"), $$(".myinputcontent"));
+
+
+
+    $$(".subArticle").onclick = function() {
+
+        if($$(".myinputtitle").value.trim() == "") {
+            $$(".myinputtitle").classList.add("inputerror");
+            $$(".myinputtitle").focus();
+            return;
+        }
+        if($$(".myinputcontent").value.trim() == "") {
+            $$(".myinputcontent").classList.add("inputerror");
+            $$(".myinputcontent").focus();
+            return;
+        }
+        postArticle();
+        $$(".subArticle").onclick = null;
+    }
+
+    function postArticle() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/user/addArticle", true);
+        xhr.responseType = "text";
+        var formData = new FormData();
+        formData.append("articletitle", $$(".myinputtitle").value);
+        formData.append("articlecontent", $$(".myinputcontent").value);
+        fileLoader.progress(xhr)
+        fileLoader.loaded(xhr);
+        for(var i = 0; i < fileLoader.files.length; i++) {
+            formData.append("articleImgList", fileLoader.files[i]);
+        }
+        //xhr.setRequestHeader("Content-Type", "multipart/form-data")
+        xhr.send(formData);
+    }
+</script>

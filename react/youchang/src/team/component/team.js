@@ -27,7 +27,7 @@ class TeamList extends React.Component {
                 self.setState({
                     teamlist: JSON.parse(xhr.response)
                 });
-                isLoadingOrIsLoaded("", false, true);
+                //isLoadingOrIsLoaded("", false, true);
                 scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
                 window.addEventListener("scroll", TeamList.myScroll)
             }
@@ -35,6 +35,7 @@ class TeamList extends React.Component {
         xhr.send();
 
     }
+
 
     componentWillUnmount() {
         console.log("team willunmount")

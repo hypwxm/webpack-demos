@@ -1,0 +1,13 @@
+<%- include ../include/header.ejs %>
+<div>
+    <form>
+        <input name="title" type="text" class="title" />
+        <textarea class="content" name="content"></textarea>
+        <div class="multipicupload">
+            <input type="file" name="articlepics" class="articlepics" multiple="true" />
+            <span>choose lots of pictures</span>
+        </div>
+        <input type="button" class="subarticle" value="submit">
+    </form>
+</div>
+<%- include ../include/footer.ejs %>

@@ -73,7 +73,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "" + ({"1":"./public/js/order/order","2":"./public/js/team/team"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + ({"1":"./public/js/order/order","2":"./public/js/team/team","3":"./public/js/user/user"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -125,9 +125,7 @@
 	            return replace('/order');
 	        } },
 
-	    childRoutes: [__webpack_require__(246), __webpack_require__(248), { path: "/order", onEnter: function onEnter(nextState, replace) {
-	            return replace("/");
-	        } }]
+	    childRoutes: [__webpack_require__(246), __webpack_require__(248), __webpack_require__(250)]
 
 	    /*childRoutes: [
 	        { path: 'about', component: About },
@@ -27146,6 +27144,8 @@
 	    }, {
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
+
+	            isLoadingOrIsLoaded("", false, true);
 	            console.log("app didmount");
 	        }
 	    }, {
@@ -27156,6 +27156,7 @@
 	    }, {
 	        key: "componentWillReceiveProps",
 	        value: function componentWillReceiveProps() {
+	            isLoadingOrIsLoaded("", true, false);
 	            console.log("app WillReciveProps");
 	        }
 	    }, {
@@ -27167,6 +27168,11 @@
 	        key: "componentDidUpdate",
 	        value: function componentDidUpdate() {
 	            console.log("app didupdate");
+	            imgScrollIndex = 0;
+	            scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
+	            setTimeout(function () {
+	                isLoadingOrIsLoaded("", false, true);
+	            }, 300);
 	        }
 	    }, {
 	        key: "render",
@@ -27175,32 +27181,6 @@
 	                "div",
 	                null,
 	                _react2.default.createElement(_Nav2.default, null),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "navbox" },
-	                    _react2.default.createElement(
-	                        "ul",
-	                        null,
-	                        _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: "/order", activeStyle: { color: "red" } },
-	                                "order"
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: "/team", activeStyle: { color: "red" } },
-	                                "team"
-	                            )
-	                        )
-	                    )
-	                ),
 	                this.props.children
 	            );
 	        }
@@ -27237,13 +27217,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FootNav = function (_React$Component) {
-	    _inherits(FootNav, _React$Component);
+	var Nav = function (_React$Component) {
+	    _inherits(Nav, _React$Component);
 
-	    function FootNav(props) {
-	        _classCallCheck(this, FootNav);
+	    function Nav(props) {
+	        _classCallCheck(this, Nav);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FootNav).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Nav).call(this, props));
 
 	        _this.state = {
 	            navShow: false
@@ -27251,7 +27231,7 @@
 	        return _this;
 	    }
 
-	    _createClass(FootNav, [{
+	    _createClass(Nav, [{
 	        key: "navClick",
 	        value: function navClick() {
 	            this.setState({
@@ -27285,8 +27265,18 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: "/Community", activeStyle: { color: "red" }, className: "eachnav" },
+	                        { to: "/community", activeStyle: { color: "red" }, className: "eachnav" },
 	                        "Community"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/team", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "Team"
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: "/order", activeStyle: { color: "red" }, className: "eachnav" },
+	                        "Order"
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
@@ -27298,10 +27288,10 @@
 	        }
 	    }]);
 
-	    return FootNav;
+	    return Nav;
 	}(_react2.default.Component);
 
-	exports.default = FootNav;
+	exports.default = Nav;
 
 /***/ },
 /* 237 */
@@ -27354,6 +27344,22 @@
 	    getComponent: function getComponent(nextState, cb) {
 	        __webpack_require__.e/* nsure */(2, function (require) {
 	            cb(null, __webpack_require__(249));
+	        });
+	    }
+	};
+
+/***/ },
+/* 249 */,
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	    path: "user",
+	    getComponent: function getComponent(nextState, cb) {
+	        __webpack_require__.e/* nsure */(3, function (require) {
+	            cb(null, __webpack_require__(251));
 	        });
 	    }
 	};

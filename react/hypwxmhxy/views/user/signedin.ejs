@@ -1,0 +1,58 @@
+<%- include ../include/header.ejs %>
+<div class="usersignin">
+    <form>
+        <input type="text" class="username inputinit" name="username" placeholder="username" />
+        <input type="password" class="password inputinit" name="password" placeholder="password"/>
+        <input type="button" value="Sign In" class="willsignedin" />
+    </form>
+    <div class="isforgetorup">
+        <a href="">Forget Password</a>
+        <a href="/user/signedup" class="willsignedup">Sign Up</a>
+    </div>
+</div>
+<%- include ../include/footer.ejs %>
+<script>
+
+    foucesRemoveError($$(".username"), $$(".password"));
+
+
+    DS.$(function() {
+        $$(".willsignedin").onclick = function() {
+            login();
+        }
+    })
+
+    function login() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/user/api/signedin", true);
+        xhr.responseType = "text";
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4) {
+                if(/2\d{2}/.test(xhr.status)) {
+                    var res = JSON.parse(xhr.response);
+                    if(res.Msg == "success") {
+                        window.location.pathname = "/user/success";
+                    } else if (res.errorcode == 1) {
+                        alert("signed in fault, try again");
+                    } else if (res.errorcode == 2) {
+                        $$(".username").classList.add("inputerror");
+                        $$(".username").focus();
+                        alert("username not exists")
+                    } else if (res.errorcode == 3) {
+                        $$(".password").classList.add("inputerror");
+                        $$(".password").focus();
+                    }
+                } else {
+                    alert("signed in fault, try again");
+                }
+
+            }
+        }
+        var params = {};
+        params.username = $$(".username").value;
+        params.password = $$(".password").value;
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+        xhr.send(JSON.stringify(params));
+    }
+</script>

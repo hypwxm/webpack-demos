@@ -16,35 +16,41 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        
+        isLoadingOrIsLoaded("", false, true);
         console.log("app didmount")
     }
 
     componentWillUnmout() {
-        console.log("app willunmont")
+        console.log("app willunmont");
     }
 
     componentWillReceiveProps() {
+        isLoadingOrIsLoaded("", true, false);
         console.log("app WillReciveProps")
     }
 
     componnetWillUpdate() {
-        console.log("app willupdate")
+        console.log("app willupdate");
     }   
     
     componentDidUpdate() {
-        console.log("app didupdate")
+        console.log("app didupdate");
+        imgScrollIndex = 0;
+        scrollLoadingImg(document.body.scrollTop, document.documentElement.clientHeight);
+        setTimeout(function() {
+            isLoadingOrIsLoaded("", false, true);
+        }, 300)
+        
+
+       
+        
     }
     
     render() {
         return (
             <div>
                 <Headbar />
-                <div className="navbox">
-                    <ul>
-                        <li><Link to="/order" activeStyle={{color: "red"}}>order</Link></li>
-                        <li><Link to="/team" activeStyle={{color: "red"}}>team</Link></li>
-                    </ul>
-                </div>
                 {this.props.children}
             </div>
         )
